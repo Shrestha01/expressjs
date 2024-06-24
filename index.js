@@ -1,12 +1,20 @@
 const express = require("express");
 const app = express();
 
+// application level middleware
+const reqFilter = (req, res, next) => {
+  const age = req.query.age;
+  console.log(age);
+  if (age > 18) {
+    next();
+  } else {
+    res.send("You are under age");
+  }
+};
+// using middleware
+app.use(reqFilter);
 
-// abblication level middleware
-const reqFilter = (req,res,next)={
-}
-
-app.use(reqFilter)
+//Route
 app.get("/", (req, res) => {
   res.send("Hello i am from serverside");
 });
