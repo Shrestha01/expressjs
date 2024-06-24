@@ -4,11 +4,6 @@ const app = express();
 
 // abblication level middleware
 const reqFilter = (req,res,next)={
-  if(!req.query.age){
-    res.send("Please provide the age")
-  }else{
-    next()
-  }
 }
 
 app.use(reqFilter)
