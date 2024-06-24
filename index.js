@@ -1,11 +1,17 @@
 const express = require("express");
 const app = express();
-const hbs = require("hbs");
-//setting view engine (hbs)
-app.set("view engine", "hbs");
 
-//app.use("./view");
 
+// abblication level middleware
+const reqFilter = (req,res,next)={
+  if(!req.query.age){
+    res.send("Please provide the age")
+  }else{
+    next()
+  }
+}
+
+app.use(reqFilter)
 app.get("/", (req, res) => {
   res.send("Hello i am from serverside");
 });
