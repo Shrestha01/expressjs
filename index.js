@@ -1,36 +1,36 @@
-// view engine in express js are used to show dynamic HTML page in node js
+// Route level middle can be applied to one or more route.
+// But, application level middleware are applied to all the route.
 
-const express = require("express"); // importing express
-const hbs = require("hbs"); // importing hbs
-const app = express(); // creating express js app
-const bodyParser = require("body-parser"); //body parser for form data
+// importing express module
+const express = require("express");
+const app = express();
 
-// view engine setting as hbs
-app.set("view engine", "hbs");
+//importing router module for route level middleware
+const route = express.Router();
 
-//setting path for view
-app.set("views", "./views");
-
-// using bodyparser to extract form data.
-app.use(bodyParser.urlencoded({ extended: false }));
-
-// Route  with dynamic data passing
-app.get("/", (req, res) => {
-  // render home templete with dynamic data
-  res.render("home");
-});
-
-app.post("/login", (req, res) => {
-  const name = req.body.username;
-  const password = req.body.password;
-  if (name === "adarsha" && password === "adarsha") {
-    res.render("dashboard", { name, password });
+// middleware function
+const reqFilter = (req, res, next) => {
+  if (req.query.age > 18) {
+    next();
   } else {
-    res.send("Login failed");
+    res.send("Sorry you are under age");
   }
+};
+//app.use(reqFilter);
+// using middleware function in route
+route.use(reqFilter);
+app.get("/", (req, res) => {
+  res.send("Hello I am from Home page");
+});
+route.get("/about", (req, res) => {
+  res.send("Hello I am from About page");
+});
+route.get("/contact", (req, res) => {
+  res.send("Hello I am from Contact page");
 });
 
-//starting a server on port 8000
+//route
+app.use("/", route);
 app.listen(8000, () => {
-  console.log("Server running on port 8000");
+  console.log("server running on port 8000");
 });
