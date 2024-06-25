@@ -1,0 +1,33 @@
+Application level middleware are the middleware that are automatically applied to all the route in the application
+for this, we will create a function with parameter (req, res, next), next() is for the exection of next route after middleware.
+    const reqFilter = (req,res)=>{
+        if condition setisfied
+            next() // this with send to the anotehr route
+        else
+            send error message.
+    }
+    Now middleware are implemented using app.use() method as like below:
+    app.use(reqFilter) // implementing middleware
+
+
+Route level middleware are middleware that are applied to specified route level only
+    for example:
+    first we need to import router instance.
+    const route = express.Router(); importing router instance
+
+    now using route with HTTP method to use route with middleware
+            example:
+                route.get('/',(req,res)={
+                    expression
+                })
+                route.get('/about',(req,res)={
+                    expression
+                })
+                // now need to pass route to app.use() method.
+                app.use('',route);
+                and for route without middleware
+                app.get('/',(req,res)={
+                    expression
+                })
+
+    
