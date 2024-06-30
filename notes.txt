@@ -1,1 +1,4 @@
-// get API in nodejs with mysql
+// POST API in nodejs with mysql
+
+for this we need to install POStman.
+we are passing static data for this example.
