@@ -1,3 +1,4 @@
+const express = require("express");
 const mysql = require("mysql");
 const con = mysql.createConnection({
   host: "localhost",
@@ -5,11 +6,11 @@ const con = mysql.createConnection({
   password: "",
   database: "adarsha",
 });
-con.connect(() => {
+con.connect((err) => {
   if (err) {
-    console.warn("connection error");
+    console.log("error in connection");
   } else {
-    console.log("database connected");
+    console.log("Connection Successfull");
   }
 });
 
